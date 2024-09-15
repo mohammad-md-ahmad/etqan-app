@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Contracts\AuthServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterUserRequest;
 use App\Models\User;
@@ -12,14 +13,15 @@ use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
+    public function __construct(
+        protected AuthServiceInterface $authService
+    ) {
+    }
+
     public function registerUser(RegisterUserRequest $request)
     {
         try {
-            $password = Hash::make($request->password);
-            $user = new User();
-
-            $user->fill($request->all());
-            $user->password = $password;
+            $user = $this->authService->registerUser($request);
 
             return response()->json(['message' => 'success'], Response::HTTP_CREATED);
         } catch (Exception $exception) {
