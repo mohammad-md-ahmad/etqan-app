@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Contracts\AuthServiceInterface;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterUserRequest;
 use App\Models\User;
 use Exception;
@@ -24,6 +25,19 @@ class AuthController extends Controller
             $user = $this->authService->registerUser($request);
 
             return response()->json(['message' => 'success'], Response::HTTP_CREATED);
+        } catch (Exception $exception) {
+            Log::error(self::class . '::' . __FUNCTION__ . ':' . $exception->getMessage());
+
+            return response()->json(['message' => 'something went wrong'], Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function login(LoginRequest $request)
+    {
+        try {
+            $this->authService->authenticate($request);
+
+            return redirect('/');
         } catch (Exception $exception) {
             Log::error(self::class . '::' . __FUNCTION__ . ':' . $exception->getMessage());
 

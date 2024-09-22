@@ -1,6 +1,7 @@
 @extends('layouts/master')
 @section('title', 'Welcome')
 @section('content')
-<h1>Welcome To Etqan App</h1>
-<a href="{{ route('auth.signup.view') }}">Sign Up</a>
+<div class="flex justify-center items-center h-full w-full">
+    <h1>{{ trans('Weclome To :app_name', ['app_name' => config('app.name')]) }}</h1>
+</div>
 @endsection
