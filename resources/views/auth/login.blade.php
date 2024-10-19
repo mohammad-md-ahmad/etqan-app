@@ -15,7 +15,7 @@
             <input type="password" name="password" class="p-2 border-2 block w-full rounded-lg"/>
         </div>
         <div class="flex justify-end my-4 p-4 pe-0">
-            <button type="submit" id="submit" class="bg-blue-500 uppercase p-4 m-0 px-[25px] text-lg font-bold text-white">{{ trans('Submit') }}</button>
+            <button type="submit" id="submit" class="bg-blue-500 hover:bg-blue-600 whitespace-nowrap rounded-md py-3 px-5 uppercase m-0 text-lg font-bold text-white">{{ trans('Submit') }}</button>
         </div>
     </form>
 </div>
