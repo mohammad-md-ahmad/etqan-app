@@ -7,6 +7,14 @@ export default {
     theme: {
         extend: {},
     },
-    plugins: [],
+    plugins: [
+        function ({ addBase }) {
+            addBase({
+                'input': {
+                    color: '#000000',
+                },
+            });
+        },
+    ],
     darkMode: 'selector',
 }
