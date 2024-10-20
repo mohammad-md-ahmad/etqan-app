@@ -13,6 +13,10 @@ export default {
                 'input': {
                     color: '#000000',
                 },
+                'input:focus-visible, input:focus': {
+                    '@apply border-blue-500': '',
+                    outline: 'none',
+                },
             });
         },
     ],
