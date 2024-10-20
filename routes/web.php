@@ -15,7 +15,8 @@ Route::middleware(['web', 'auth'])->group(function () {
         // Route::post('/', 'doSearch')->name('action');
     });
 
-    Route::prefix('user')->name('user')->controller(UserController::class)->group(function () {
+    Route::prefix('user')->name('user.')->controller(UserController::class)->group(function () {
         Route::get('/{username}', 'profile')->name('profile');
+        Route::post('/{username}/follow', 'toggleFollow')->name('toggle-follow');
     });
 });
