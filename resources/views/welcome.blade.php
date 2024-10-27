@@ -1,7 +1,5 @@
 @extends('layouts/master')
 @section('title', 'Welcome')
 @section('content')
-<div class="flex justify-center items-center h-full w-full">
-    <h1>{{ trans('Weclome To :app_name', ['app_name' => config('app.name')]) }}</h1>
-</div>
+<h1>Welcome To Etqan App {{ auth()->user()->first_name }}</h1>
 @endsection

@@ -7,6 +7,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterUserRequest;
 use App\Models\User;
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -24,6 +25,8 @@ class AuthService implements AuthServiceInterface
             $user->fill($request->all());
             $user->password = $password;
 
+            $user->save();
+
             return $user;
         } catch (Exception $exception) {
             Log::error(self::class . '::' . __FUNCTION__ . ':' . $exception->getMessage());
@@ -32,17 +35,33 @@ class AuthService implements AuthServiceInterface
         }
     }
 
-    public function authenticate(LoginRequest $request): bool
+    public function login(LoginRequest $request): bool
     {
-        try{
+        try {
             $sessionAttributes = array_keys(Session::all());
             Session::forget($sessionAttributes);
 
-            if (! Auth::attempt(['email' => $request->username, 'password' => $request->password])) {
-                throw ValidationException::withMessages([trans('Username or Password is incorrect')]);
+            if (! Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+                throw ValidationException::withMessages([trans('Email or Password are incorrect!')]);
             }
 
             $request->hasSession() ? $request->session()->regenerate() : null;
+
+            return true;
+        } catch (Exception $exception) {
+            Log::error(self::class . '::' . __FUNCTION__ . ':' . $exception->getMessage());
+
+            throw $exception;
+        }
+    }
+
+    public function logout(Request $request): bool
+    {
+        try {
+            Auth::logout();
+
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
 
             return true;
         } catch (Exception $exception) {

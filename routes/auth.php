@@ -12,8 +12,12 @@ Route::middleware(['web', 'guest'])->group(function () {
     Route::post('/signup', [AuthController::class, 'registerUser'])->name('signup');
 
     Route::get('/login', function () {
-        return view('auth/login');
+        return view ('auth/login');
     })->name('login.view');
 
     Route::post('/login', [AuthController::class, 'login'])->name('login');
+});
+
+Route::middleware(['web', 'auth'])->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
