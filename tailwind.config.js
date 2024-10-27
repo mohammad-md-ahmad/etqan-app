@@ -11,7 +11,9 @@ export default {
         function ({ addBase }) {
             addBase({
                 'input': {
-                    color: '#000000',
+                    'color': '#000000',
+                    'border-radius': '4px',
+                    'padding': '.25rem .5rem',
                 },
                 'input:focus-visible, input:focus': {
                     '@apply border-blue-500': '',
