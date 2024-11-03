@@ -14,12 +14,15 @@ class UserController extends Controller
 {
     public function profile(Request $request)
     {
-        $username = $request->route()->parameter('username') ?? Auth::user();
+        $currentUser = Auth::user();
+        $username = $request->route()->parameter('username') ?? $currentUser;
 
         $user = User::query()->where('username', $username)->sole();
+        $isFollowing = $user == $currentUser ? false : $user->isFollowedBy($currentUser);
 
         return view('user/profile', [
             'user' => $user,
+            'isFollowing' => $isFollowing,
         ]);
     }
 

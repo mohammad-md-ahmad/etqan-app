@@ -19,7 +19,7 @@ class SearchController extends Controller
     {
         try {
             if (empty($request->term)) {
-                throw ValidationException::withMessages(['Search term is required!']);
+                throw ValidationException::withMessages([trans('Search term is required!')]);
             }
 
             $results = $this->searchService->search($request);
