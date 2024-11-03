@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewFollower;
 use App\Models\Follower;
 use App\Models\User;
 use Exception;
@@ -56,6 +57,8 @@ class UserController extends Controller
                 $newFollow->save();
 
                 $message = 'User has been followed successfully';
+
+                event(new NewFollower($follower, User::class, $userToFollow->id, trans(':username has followed you!', ['username' => $follower->username])));
             }
 
             return response()->json(['message' => trans($message)], Response::HTTP_OK);

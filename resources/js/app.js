@@ -17,3 +17,8 @@ $('#logout-link').on('click', function(e) {
         }
     });
 })
+
+// window.Echo.channel('new-follower')
+//     .listen('new-follower-event', (e) => {
+//         alert(e.message);
+//     });

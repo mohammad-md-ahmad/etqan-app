@@ -6,6 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" />
 
         <title>{{ config('app.name') }} - @yield('title')</title>
+        {{-- <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script> --}}
         @vite(['resources/css/app.scss', 'resources/js/app.js'])
     </head>
     <body class="h-full">
@@ -18,5 +19,6 @@
             </div>
         </main>
         <footer></footer>
+        @vite(['resources/js/echo-channels.js'])
     </body>
 </html>
