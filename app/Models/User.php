@@ -45,4 +45,23 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function followers()
+    {
+        return $this->morphMany(Follower::class, 'following')
+        ->where('following_type', self::class);
+    }
+
+    public function isFollowedBy(User $user): bool
+    {
+        $isFollowing = Follower::query()
+        ->where('following_type', self::class)
+        ->where('following_id', $this->id)
+        ->where('follower_id', $user->id)
+        ->first();
+
+        return ! empty($isFollowing);
+
+        // return $this->followers()->where('follower_id', $user->id)->exists();
+    }
 }

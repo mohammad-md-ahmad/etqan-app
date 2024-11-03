@@ -4,18 +4,21 @@ $(document).ready(function () {
         e.preventDefault();
 
         const username = $(this).data('username');
-        toggleFollowUser(e, username);
+        const isFollowing = $(this).data('is-following');
+
+        toggleFollowUser(e, username, isFollowing);
     });
 
-    function toggleFollowUser(e, username) {
+    function toggleFollowUser(e, username, isFollowing) {
         $.ajax({
             'url': `/user/${username}/follow`,
             'method': 'POST',
-            'data': {
-
-            },
             success: function (response) {
-                console.log(response);
+                if (isFollowing) {
+                    $('#follow-user-btn').text('Follow').data('is-following', false);
+                } else {
+                    $('#follow-user-btn').text('Unfollow').data('is-following', true);
+                }
             },
             error: function (error) {
 

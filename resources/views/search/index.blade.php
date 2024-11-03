@@ -14,7 +14,7 @@
         @if (!empty($users))
             @foreach ($users as $user)
                 <div>
-                    {{ $user->first_name }}
+                    <a href="{{ route('user.profile', ['username' => $user->username]) }}" class="underline text-blue-500">{{ $user->first_name }}</a>
                 </div>
             @endforeach
         @else
