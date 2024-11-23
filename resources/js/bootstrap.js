@@ -12,18 +12,18 @@ window.$ = $;
  * allow your team to quickly build robust real-time web applications.
  */
 
-// import './echo';
+import './echo';
 
-import Pusher from 'pusher-js';
-window.Pusher = Pusher;
+// import Pusher from 'pusher-js';
+// window.Pusher = Pusher;
 
-const pusher = new Pusher('686ebbee59eadcde1c0d', {
-    cluster: 'ap2',
-});
+// const pusher = new Pusher('686ebbee59eadcde1c0d', {
+//     cluster: 'ap2',
+// });
 
-const newFollowerChannel = pusher.subscribe('new-follower');
+// const newFollowerChannel = pusher.subscribe('new-follower');
 
-newFollowerChannel.bind('new-follower-event', function (e) {
-    console.log('new-follower e', e);
-    alert(e?.message);
-});
+// newFollowerChannel.bind('new-follower-event', function (e) {
+//     console.log('new-follower e', e);
+//     alert(e?.message);
+// });
