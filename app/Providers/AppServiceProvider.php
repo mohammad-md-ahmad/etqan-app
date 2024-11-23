@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Contracts\AuthServiceInterface;
+use App\Contracts\NotificationServiceInterface;
 use App\Contracts\SearchServiceInterface;
 use App\Services\AuthService;
+use App\Services\NotificationService;
 use App\Services\SearchService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
@@ -19,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(AuthServiceInterface::class, AuthService::class);
         $this->app->bind(SearchServiceInterface::class, SearchService::class);
+        $this->app->bind(NotificationServiceInterface::class, NotificationService::class);
     }
 
     /**
