@@ -15,6 +15,8 @@ class NewFollower implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    protected $following;
+
     /**
      * Create a new event instance.
      */
@@ -22,8 +24,9 @@ class NewFollower implements ShouldBroadcast
         protected User $follower,
         protected string $following_type,
         protected string $following_id,
-        protected string $message,
+        public string $message,
     ) {
+        $this->following = app()->make($this->following_type)->findOrFail($this->following_id);
     }
 
     /**
@@ -34,13 +37,13 @@ class NewFollower implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new Channel(env('NEW_FOLLOWER_BROADCAST_CHANNEL', 'new-follower')),
+            new PrivateChannel(env('NEW_FOLLOWER_BROADCAST_CHANNEL', 'new-follower').'.'.$this->following->id),
         ];
     }
 
     public function broadcastAs()
     {
-        return 'new-follower-event';
+        return env('NEW_FOLLOWER_BROADCAST_EVENT', 'new-follower-event');
     }
 
     public function broadcastWith()

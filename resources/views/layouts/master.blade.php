@@ -18,5 +18,13 @@
             </div>
         </main>
         <footer></footer>
+        <script>
+            @if(auth()->check())
+            window.authUserId = @json(auth()->user()->id);
+            @else
+            window.authUserId = null;
+            @endif
+        </script>
+        @vite('resources/js/broadcasting.js')
     </body>
 </html>
